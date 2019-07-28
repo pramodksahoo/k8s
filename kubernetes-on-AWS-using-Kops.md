@@ -1,10 +1,10 @@
-Kubernetes on AWS using Kops
+    Kubernetes on AWS using Kops
 
 1. Launch Linux EC2 instance in AWS
 
 2. Create and attach IAM role to EC2 Instance.
 
-Kops need permissions to access
+   Kops need permissions to access
 	S3
 	EC2
 	VPC
@@ -14,19 +14,19 @@ Kops need permissions to access
 
 3. Install Kops on EC2
 
-curl -LO https://github.com/kubernetes/kops/releases/download/$(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)/kops-linux-amd64
+    curl -LO https://github.com/kubernetes/kops/releases/download/$(curl -s  https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)/kops-linux-amd64
 
-chmod +x kops-linux-amd64
-sudo mv kops-linux-amd64 /usr/local/bin/kops
+ chmod +x kops-linux-amd64
+ sudo mv kops-linux-amd64 /usr/local/bin/kops
 
 4. Install kubectl
 
-curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
-chmod +x ./kubectl
-sudo mv ./kubectl /usr/local/bin/kubectl
+ curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+ chmod +x ./kubectl
+ sudo mv ./kubectl /usr/local/bin/kubectl
 
 5. Create S3 bucket in AWS
-S3 bucket is used by kubernetes to persist cluster state, lets create s3 bucket using aws cli Note: Make sure you choose bucket name that is uniqe accross all aws accounts
+   S3 bucket is used by kubernetes to persist cluster state, lets create s3 bucket using aws cli Note: Make sure you choose bucket name that is uniqe accross all aws accounts
 
   aws s3 mb s3://pramod.in.k8s --region us-east-2
 
