@@ -28,31 +28,35 @@ sudo mv ./kubectl /usr/local/bin/kubectl
 5. Create S3 bucket in AWS
 S3 bucket is used by kubernetes to persist cluster state, lets create s3 bucket using aws cli Note: Make sure you choose bucket name that is uniqe accross all aws accounts
 
-aws s3 mb s3://javahome.in.k8s --region ap-south-1
+  aws s3 mb s3://pramod.in.k8s --region ap-south-1
+
 6. Create private hosted zone in AWS Route53
-Head over to aws Route53 and create hostedzone
-Choose name for example (javahome.in)
-Choose type as privated hosted zone for VPC
-Select default vpc in the region you are setting up your cluster
-Hit create
+   Head over to aws Route53 and create hostedzone
+   Choose name for example (javahome.in)
+   Choose type as privated hosted zone for VPC
+   Select default vpc in the region you are setting up your cluster
+   Hit create
 7 Configure environment variables.
-Open .bashrc file
+   Open .bashrc file
 
 	vi ~/.bashrc
-Add following content into .bashrc, you can choose any arbitary name for cluster and make sure buck name matches the one you created in previous step.
 
-export KOPS_CLUSTER_NAME=pramod.in
-export KOPS_STATE_STORE=s3://pramod.in.k8s
+  Add following content into .bashrc, you can choose any arbitary name for cluster and make sure buck name matches the one you created in previous step.
 
-Then running command to reflect variables added to .bashrc
+   export KOPS_CLUSTER_NAME=pramod.in
+   export KOPS_STATE_STORE=s3://pramod.in.k8s
+
+ Then running command to reflect variables added to .bashrc
 
 	source ~/.bashrc
+
 8. Create ssh key pair
-This keypair is used for ssh into kubernetes cluster
+  This keypair is used for ssh into kubernetes cluster
 
   ssh-keygen
-
+  
 9. Create a Kubernetes cluster definition.
+  
   kops create cluster \
   --state=${KOPS_STATE_STORE} \
   --node-count=2 \
@@ -67,16 +71,16 @@ This keypair is used for ssh into kubernetes cluster
 
  kops update cluster --yes
 
-Above command may take some time to create the required infrastructure resources on AWS. Execute the validate command to check its status and wait until the cluster becomes ready
+  Above command may take some time to create the required infrastructure resources on AWS. Execute the validate command to check its status and wait until the cluster becomes ready
 
    kops validate cluster
-   
-For the above above command, you might see validation failed error initially when you create cluster and it is expected behaviour, you have to wait for some more time and check again.
+
+  For the above above command, you might see validation failed error initially when you create cluster and it is expected behaviour, you have to wait for some more time and check again.
 
 11. To connect to the master
 
- ssh admin@api.pramod.in
+   ssh admin@api.pramod.in
 
 12. Destroy the kubernetes cluster
 
- kops delete cluster  --yes
+   kops delete cluster  --yes
