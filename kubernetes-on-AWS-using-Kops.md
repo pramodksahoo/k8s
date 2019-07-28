@@ -43,31 +43,40 @@ Add following content into .bashrc, you can choose any arbitary name for cluster
 
 export KOPS_CLUSTER_NAME=pramod.in
 export KOPS_STATE_STORE=s3://pramod.in.k8s
+
 Then running command to reflect variables added to .bashrc
 
 	source ~/.bashrc
 8. Create ssh key pair
 This keypair is used for ssh into kubernetes cluster
 
-ssh-keygen
+  ssh-keygen
+
 9. Create a Kubernetes cluster definition.
-kops create cluster \
---state=${KOPS_STATE_STORE} \
---node-count=2 \
---master-size=t2.micro \
---node-size=t2.micro \
---zones=ap-south-1a,ap-south-1b \
---name=${KOPS_CLUSTER_NAME} \
---dns private \
---master-count 1
+  kops create cluster \
+  --state=${KOPS_STATE_STORE} \
+  --node-count=2 \
+  --master-size=t2.micro \
+  --node-size=t2.micro \
+  --zones=ap-south-1a,ap-south-1b \
+  --name=${KOPS_CLUSTER_NAME} \
+  --dns private \
+  --master-count 1
+
 10. Create kubernetes cluster
-kops update cluster --yes
+
+ kops update cluster --yes
+
 Above command may take some time to create the required infrastructure resources on AWS. Execute the validate command to check its status and wait until the cluster becomes ready
 
-kops validate cluster
+   kops validate cluster
+   
 For the above above command, you might see validation failed error initially when you create cluster and it is expected behaviour, you have to wait for some more time and check again.
 
 11. To connect to the master
-ssh admin@api.pramod.in
-Destroy the kubernetes cluster
-kops delete cluster  --yes
+
+ ssh admin@api.pramod.in
+
+12. Destroy the kubernetes cluster
+
+ kops delete cluster  --yes
